@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <title>Swiss Stage</title>
 <style>
   body { background:#0d0d0d; color:white; font-family:Arial; }
   #swiss {
-    display: grid;
-    grid-template-columns: repeat(6, 220px);
-    grid-template-rows: repeat(5, auto);
-    gap: 30px;
+    display: flex; /* Ändere von grid zu flex für horizontale Anordnung */
+    gap: 20px; /* Abstand zwischen den Spalten */
     padding: 20px;
-    justify-content: center;
+    overflow-x: auto; /* Bei vielen Spalten scrollbar */
   }
-  .col { background:#1a1a1a; padding:15px; border-radius:12px; }
+  .col { background:#1a1a1a; padding:15px; border-radius:12px; min-width:220px; }
   .players { margin-top:10px; }
-  h2 { text-align:center; margin:0; margin-bottom:10px; }
+  h2 { text-align:center; margin:0 0 10px 0; }
 </style>
 </head>
 <body>
@@ -23,74 +21,56 @@
 
 <div id="swiss">
 
-  <!-- COLUMN 1 (0-0 center) -->
-  <div class="col" style="grid-row:3; grid-column:1;">
+  <!-- COLUMN 1 (0-0) -->
+  <div class="col" style="min-width:220px;">
     <h2>0-0</h2>
     <div id="col-0-0" class="players"></div>
   </div>
 
-  <!-- COLUMN 2 (1-0 top, 0-1 bottom) -->
-  <div class="col" style="grid-row:2; grid-column:2;">
+  <!-- COLUMN 2 (1-0, 0-1) -->
+  <div class="col" style="min-width:220px;">
     <h2>1-0</h2>
     <div id="col-1-0" class="players"></div>
-  </div>
-  <div class="col" style="grid-row:4; grid-column:2;">
     <h2>0-1</h2>
     <div id="col-0-1" class="players"></div>
   </div>
 
-  <!-- COLUMN 3 (2-0 top, 1-1 center, 0-2 bottom) -->
-  <div class="col" style="grid-row:1; grid-column:3;">
+  <!-- COLUMN 3 (2-0, 1-1, 0-2) -->
+  <div class="col" style="min-width:220px;">
     <h2>2-0</h2>
     <div id="col-2-0" class="players"></div>
-  </div>
-  <div class="col" style="grid-row:3; grid-column:3;">
     <h2>1-1</h2>
     <div id="col-1-1" class="players"></div>
-  </div>
-  <div class="col" style="grid-row:5; grid-column:3;">
     <h2>0-2</h2>
     <div id="col-0-2" class="players"></div>
   </div>
 
-  <!-- COLUMN 4 (3-0 top, 2-1 upper-mid, 1-2 lower-mid, 0-3 bottom) -->
-  <div class="col" style="grid-row:1; grid-column:4;">
+  <!-- COLUMN 4 (3-0, 2-1, 1-2, 0-3) -->
+  <div class="col" style="min-width:220px;">
     <h2>3-0</h2>
     <div id="col-3-0" class="players"></div>
-  </div>
-  <div class="col" style="grid-row:2; grid-column:4;">
     <h2>2-1</h2>
     <div id="col-2-1" class="players"></div>
-  </div>
-  <div class="col" style="grid-row:4; grid-column:4;">
     <h2>1-2</h2>
     <div id="col-1-2" class="players"></div>
-  </div>
-  <div class="col" style="grid-row:5; grid-column:4;">
     <h2>0-3</h2>
     <div id="col-0-3" class="players"></div>
   </div>
 
-  <!-- COLUMN 5 (3-1 upper-mid, 2-2 center, 1-3 lower-mid) -->
-  <div class="col" style="grid-row:2; grid-column:5;">
+  <!-- COLUMN 5 (3-1, 2-2, 1-3) -->
+  <div class="col" style="min-width:220px;">
     <h2>3-1</h2>
     <div id="col-3-1" class="players"></div>
-  </div>
-  <div class="col" style="grid-row:3; grid-column:5;">
     <h2>2-2</h2>
     <div id="col-2-2" class="players"></div>
-  </div>
-  <div class="col" style="grid-row:4; grid-column:5;">
     <h2>1-3</h2>
     <div id="col-1-3" class="players"></div>
   </div>
 
-  <!-- COLUMN 6 (3-2 center, 2-3 bottom) -->
-  <div class="col" style="grid-row:3; grid-column:6;">
+  <!-- COLUMN 6 (3-2, 2-3) -->
+  <div class="col" style="min-width:220px;">
     <h2>3-2</h2>
     <div id="col-3-2" class="players"></div>
-  </div>
-  <div class="col" style="grid-row:5; grid-column:6;">
     <h2>2-3</h2>
     <div id="col-2-3" class="players"></div>
   </div>
@@ -174,6 +154,5 @@ fillPlaceholders('col-3-2', 6);
 fillPlaceholders('col-2-3', 6);
 
 </script>
-
 </body>
 </html>
