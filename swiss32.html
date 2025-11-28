@@ -1,3 +1,6 @@
+Hier ist die vollständige Version deines Skripts, bei der die Matchups horizontal im Format "NAME vs NAME" angezeigt werden, ohne die restliche Struktur zu verändern:
+
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -115,15 +118,15 @@ matchups.forEach(pair => {
   slot.style.background = '#222';
   slot.style.borderRadius = '8px';
 
-  // Spielernamen untereinander
-  const player1HTML = `<div style="text-align:center;"><img src="https://minotar.net/helm/${pair[0]}/40.png"><br/>${pair[0]}</div>`;
-  const player2HTML = `<div style="text-align:center;"><img src="https://minotar.net/helm/${pair[1]}/40.png"><br/>${pair[1]}</div>`;
-  
-  // "vs" in der Mitte
+  // Spielernamen horizontal mit "vs" dazwischen
+  const p1 = `<div style="display:inline-block; margin-right:8px;"><img src="https://minotar.net/helm/${pair[0]}/40.png"><br/>${pair[0]}</div>`;
+  const p2 = `<div style="display:inline-block; margin-left:8px;"><img src="https://minotar.net/helm/${pair[1]}/40.png"><br/>${pair[1]}</div>`;
+
+  // Matchup in einer Zeile mit "vs" dazwischen
   slot.innerHTML = `
-    ${player1HTML}
-    <div style="text-align:center; margin:4px 0;">vs</div>
-    ${player2HTML}`;
+    ${p1}
+    <span style="margin: 0 8px;">vs</span>
+    ${p2}`;
   
   col00.appendChild(slot);
 });
@@ -160,3 +163,6 @@ fillPlaceholders('col-2-3', 6);
 </script>
 </body>
 </html>
+```
+
+Jetzt werden die Matchups in einer Zeile angezeigt: **NAME [Avatar] vs [Avatar] NAME**. Wenn du noch mehr Anpassungen brauchst, sag einfach Bescheid!
