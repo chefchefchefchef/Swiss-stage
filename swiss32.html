@@ -6,39 +6,79 @@
 <style>
   body { background:#0d0d0d; color:white; font-family:Arial; }
   #swiss {
-    display: flex; /* Horizontal in einer Zeile */
-    flex-wrap: wrap; /* Bei Bedarf Zeilenumbruch */
-    gap: 10px; /* Abstand zwischen den Matchups */
+    display: flex; /* Horizontal Anordnung */
+    gap: 20px; /* Abstand zwischen den Spalten */
     padding: 20px;
+    overflow-x: auto; /* Bei vielen Spalten scrollbar */
   }
-  .matchup {
-    display: flex;
-    align-items: center;
-    background: #222;
-    padding: 8px 12px;
-    border-radius: 8px;
-    font-size: 14px;
-  }
-  .player {
-    display: flex;
-    align-items: center;
-    margin: 0 8px;
-  }
-  .player img {
-    width: 40px;
-    height: 40px;
-    margin-right: 6px;
-    border-radius: 4px;
-  }
+  .col { background:#1a1a1a; padding:15px; border-radius:12px; min-width:220px; }
+  .players { margin-top:10px; }
+  h2 { text-align:center; margin:0 0 10px 0; }
 </style>
 </head>
 <body>
 <h1 style="text-align:center;">Swiss Stage – 32 Spieler</h1>
 
-<div id="swiss"></div>
+<div id="swiss">
+
+  <!-- COLUMN 1 (0-0) -->
+  <div class="col" style="min-width:220px;">
+    <h2>0-0</h2>
+    <div id="col-0-0" class="players"></div>
+  </div>
+
+  <!-- COLUMN 2 (1-0, 0-1) -->
+  <div class="col" style="min-width:220px;">
+    <h2>1-0</h2>
+    <div id="col-1-0" class="players"></div>
+    <h2>0-1</h2>
+    <div id="col-0-1" class="players"></div>
+  </div>
+
+  <!-- COLUMN 3 (2-0, 1-1, 0-2) -->
+  <div class="col" style="min-width:220px;">
+    <h2>2-0</h2>
+    <div id="col-2-0" class="players"></div>
+    <h2>1-1</h2>
+    <div id="col-1-1" class="players"></div>
+    <h2>0-2</h2>
+    <div id="col-0-2" class="players"></div>
+  </div>
+
+  <!-- COLUMN 4 (3-0, 2-1, 1-2, 0-3) -->
+  <div class="col" style="min-width:220px;">
+    <h2>3-0</h2>
+    <div id="col-3-0" class="players"></div>
+    <h2>2-1</h2>
+    <div id="col-2-1" class="players"></div>
+    <h2>1-2</h2>
+    <div id="col-1-2" class="players"></div>
+    <h2>0-3</h2>
+    <div id="col-0-3" class="players"></div>
+  </div>
+
+  <!-- COLUMN 5 (3-1, 2-2, 1-3) -->
+  <div class="col" style="min-width:220px;">
+    <h2>3-1</h2>
+    <div id="col-3-1" class="players"></div>
+    <h2>2-2</h2>
+    <div id="col-2-2" class="players"></div>
+    <h2>1-3</h2>
+    <div id="col-1-3" class="players"></div>
+  </div>
+
+  <!-- COLUMN 6 (3-2, 2-3) -->
+  <div class="col" style="min-width:220px;">
+    <h2>3-2</h2>
+    <div id="col-3-2" class="players"></div>
+    <h2>2-3</h2>
+    <div id="col-2-3" class="players"></div>
+  </div>
+
+</div>
 
 <script>
-// Player-Liste
+// Player list
 const players = [
   "Schobby","Texturo","m6rie","nolarf","Zhertak","Kacm","Chesper31","cloudafter",
   "SoEinChef","parpp","Tqwastr","Mariokart617","NutSardina","Cleshiro","Furkani","Dexwi",
@@ -46,7 +86,7 @@ const players = [
   "schelzy","lifelog","Lrrys","Hevax","Nikelodar","Prenerfabort","Videas","Greenuh"
 ];
 
-// Matchups
+// Matchups array
 const matchups = [
   ["SoEinChef","Hevax"],
   ["Nikelodar","Vendxry"],
@@ -66,37 +106,57 @@ const matchups = [
   ["Lrrys","Greenuh"]
 ];
 
-// Container
-const container = document.getElementById('swiss');
+const col00 = document.getElementById('col-0-0');
 
-// Matchups in einer Zeile darstellen
 matchups.forEach(pair => {
-  const matchupDiv = document.createElement('div');
-  matchupDiv.className = 'matchup';
+  const slot = document.createElement('div');
+  slot.style.marginBottom = '12px';
+  slot.style.padding = '6px';
+  slot.style.background = '#222';
+  slot.style.borderRadius = '8px';
 
-  // Spieler 1
-  const player1Div = document.createElement('div');
-  player1Div.className = 'player';
-  player1Div.innerHTML = `<img src="https://minotar.net/helm/${pair[0]}/40.png"> ${pair[0]}`;
-
-  // Spieler 2
-  const player2Div = document.createElement('div');
-  player2Div.className = 'player';
-  player2Div.innerHTML = `<img src="https://minotar.net/helm/${pair[1]}/40.png"> ${pair[1]}`;
-
-  // "vs" Text
-  const vsSpan = document.createElement('span');
-  vsSpan.style.margin = '0 8px';
-  vsSpan.innerText = 'vs';
-
-  // Zusammenfügen
-  matchupDiv.appendChild(player1Div);
-  matchupDiv.appendChild(vsSpan);
-  matchupDiv.appendChild(player2Div);
-
-  // Hinzufügen zum Container
-  container.appendChild(matchupDiv);
+  // Spielernamen untereinander
+  const player1HTML = `<div style="text-align:center;"><img src="https://minotar.net/helm/${pair[0]}/40.png"><br/>${pair[0]}</div>`;
+  const player2HTML = `<div style="text-align:center;"><img src="https://minotar.net/helm/${pair[1]}/40.png"><br/>${pair[1]}</div>`;
+  
+  // "vs" in der Mitte
+  slot.innerHTML = `
+    ${player1HTML}
+    <div style="text-align:center; margin:4px 0;">vs</div>
+    ${player2HTML}`;
+  
+  col00.appendChild(slot);
 });
+
+// Helper Funktion zum Füllen der Platzhalter
+function fillPlaceholders(id, count) {
+  const col = document.getElementById(id);
+  for (let i = 0; i < count; i++) {
+    const slot = document.createElement('div');
+    slot.style.marginBottom = '12px';
+    slot.style.padding = '6px';
+    slot.style.background = '#222';
+    slot.style.borderRadius = '8px';
+    slot.style.height = '50px';
+    col.appendChild(slot);
+  }
+}
+
+// Platzhalter in alle Spalten füllen
+fillPlaceholders('col-1-0', 16);
+fillPlaceholders('col-0-1', 16);
+fillPlaceholders('col-2-0', 8);
+fillPlaceholders('col-0-2', 8);
+fillPlaceholders('col-1-1', 16);
+fillPlaceholders('col-3-0', 4);
+fillPlaceholders('col-0-3', 4);
+fillPlaceholders('col-2-1', 12);
+fillPlaceholders('col-1-2', 12);
+fillPlaceholders('col-3-1', 6);
+fillPlaceholders('col-2-2', 12);
+fillPlaceholders('col-1-3', 6);
+fillPlaceholders('col-3-2', 6);
+fillPlaceholders('col-2-3', 6);
 </script>
 </body>
 </html>
