@@ -1,68 +1,178 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8" />
-<title>Swiss Stage Pyramid</title>
+<meta charset="UTF-8">
+<title>Swiss Stage</title>
 <style>
   body { background:#0d0d0d; color:white; font-family:Arial; }
-  #bracket {
+  #swiss {
     display: grid;
-    grid-template-columns: repeat(7, 120px);
-    grid-template-rows: repeat(20, auto);
-    gap: 20px;
-    justify-content: center;
+    grid-template-columns: repeat(6, 220px);
+    grid-template-rows: repeat(5, auto);
+    gap: 30px;
     padding: 20px;
+    justify-content: center;
   }
-  .match {
-    background:#1a1a1a;
-    padding: 10px;
-    border-radius: 8px;
-    text-align: center;
-  }
-  h2 { margin: 0 0 10px 0; font-size: 14px; }
+  .col { background:#1a1a1a; padding:15px; border-radius:12px; }
+  .players { margin-top:10px; }
+  h2 { text-align:center; margin:0; margin-bottom:10px; }
 </style>
 </head>
 <body>
-<h1 style="text-align:center;">Swiss Stage - Pyramid Layout</h1>
+<h1 style="text-align:center;">Swiss Stage – 32 Spieler</h1>
 
-<div id="bracket">
+<div id="swiss">
 
-  <!-- Round 1 matches -->
-  <div class="match" style="grid-column:1; grid-row:2;">0-0<br><div id="match-0"></div></div>
-  <div class="match" style="grid-column:1; grid-row:4;">0-0<br><div id="match-1"></div></div>
-  <div class="match" style="grid-column:1; grid-row:6;">0-0<br><div id="match-2"></div></div>
-  <div class="match" style="grid-column:1; grid-row:8;">0-0<br><div id="match-3"></div></div>
-  <!-- Add more matches as needed -->
+  <!-- COLUMN 1 (0-0 center) -->
+  <div class="col" style="grid-row:3; grid-column:1;">
+    <h2>0-0</h2>
+    <div id="col-0-0" class="players"></div>
+  </div>
 
-  <!-- Round 2 matches (winners of R1) -->
-  <div class="match" style="grid-column:3; grid-row:3;">1-0<br><div id="match-4"></div></div>
-  <div class="match" style="grid-column:3; grid-row:7;">1-0<br><div id="match-5"></div></div>
-  <!-- Add more matches, positioned higher than R1 matches -->
+  <!-- COLUMN 2 (1-0 top, 0-1 bottom) -->
+  <div class="col" style="grid-row:2; grid-column:2;">
+    <h2>1-0</h2>
+    <div id="col-1-0" class="players"></div>
+  </div>
+  <div class="col" style="grid-row:4; grid-column:2;">
+    <h2>0-1</h2>
+    <div id="col-0-1" class="players"></div>
+  </div>
 
-  <!-- Round 3 (semifinal) -->
-  <div class="match" style="grid-column:5; grid-row:5;">2-0<br><div id="match-6"></div></div>
+  <!-- COLUMN 3 (2-0 top, 1-1 center, 0-2 bottom) -->
+  <div class="col" style="grid-row:1; grid-column:3;">
+    <h2>2-0</h2>
+    <div id="col-2-0" class="players"></div>
+  </div>
+  <div class="col" style="grid-row:3; grid-column:3;">
+    <h2>1-1</h2>
+    <div id="col-1-1" class="players"></div>
+  </div>
+  <div class="col" style="grid-row:5; grid-column:3;">
+    <h2>0-2</h2>
+    <div id="col-0-2" class="players"></div>
+  </div>
 
-  <!-- Final -->
-  <div class="match" style="grid-column:7; grid-row:6;">Final<br><div id="final"></div></div>
+  <!-- COLUMN 4 (3-0 top, 2-1 upper-mid, 1-2 lower-mid, 0-3 bottom) -->
+  <div class="col" style="grid-row:1; grid-column:4;">
+    <h2>3-0</h2>
+    <div id="col-3-0" class="players"></div>
+  </div>
+  <div class="col" style="grid-row:2; grid-column:4;">
+    <h2>2-1</h2>
+    <div id="col-2-1" class="players"></div>
+  </div>
+  <div class="col" style="grid-row:4; grid-column:4;">
+    <h2>1-2</h2>
+    <div id="col-1-2" class="players"></div>
+  </div>
+  <div class="col" style="grid-row:5; grid-column:4;">
+    <h2>0-3</h2>
+    <div id="col-0-3" class="players"></div>
+  </div>
+
+  <!-- COLUMN 5 (3-1 upper-mid, 2-2 center, 1-3 lower-mid) -->
+  <div class="col" style="grid-row:2; grid-column:5;">
+    <h2>3-1</h2>
+    <div id="col-3-1" class="players"></div>
+  </div>
+  <div class="col" style="grid-row:3; grid-column:5;">
+    <h2>2-2</h2>
+    <div id="col-2-2" class="players"></div>
+  </div>
+  <div class="col" style="grid-row:4; grid-column:5;">
+    <h2>1-3</h2>
+    <div id="col-1-3" class="players"></div>
+  </div>
+
+  <!-- COLUMN 6 (3-2 center, 2-3 bottom) -->
+  <div class="col" style="grid-row:3; grid-column:6;">
+    <h2>3-2</h2>
+    <div id="col-3-2" class="players"></div>
+  </div>
+  <div class="col" style="grid-row:5; grid-column:6;">
+    <h2>2-3</h2>
+    <div id="col-2-3" class="players"></div>
+  </div>
 
 </div>
 
 <script>
-// Example: fill in the first round with players
+// Player list
 const players = [
   "Schobby","Texturo","m6rie","nolarf","Zhertak","Kacm","Chesper31","cloudafter",
-  "SoEinChef","parpp","Tqwastr","Mariokart617","NutSardina","Cleshiro","Furkani","Dexwi"
+  "SoEinChef","parpp","Tqwastr","Mariokart617","NutSardina","Cleshiro","Furkani","Dexwi",
+  "Vendxry","Hacker_Securer","_AlmondTitan_","Hexroo","Orez228","BlueTiger235","Infracting","Zollach",
+  "schelzy","lifelog","Lrrys","Hevax","Nikelodar","Prenerfabort","Videas","Greenuh"
 ];
 
-// Fill first round matches
-for (let i = 0; i < players.length; i += 2) {
-  document.getElementById(`match-${i/2}`).innerHTML = `
-    <div><img src="https://minotar.net/helm/${players[i]}/40.png"> ${players[i]}</div>
-    <div><img src="https://minotar.net/helm/${players[i+1]}/40.png"> ${players[i+1]}</div>
-  `;
+// Fill 0-0 column with fixed matchup slots
+const col00 = document.getElementById('col-0-0');
+
+// Create fixed 16 matchup slots (32 players)
+const matchups = [
+  ["SoEinChef","Hevax"],
+  ["Nikelodar","Vendxry"],
+  ["cloudafter","parpp"],
+  ["lifelog","Dexwi"],
+  ["Tqwastr","Zollach"],
+  ["Kacm","Furkani"],
+  ["Cleshiro","Hacker_Securer"],
+  ["nolarf","Orez228"],
+  ["Infracting","Schobby"],
+  ["Chesper31","_AlmondTitan_"],
+  ["BlueTiger235","Texturo"],
+  ["Videas","schelzy"],
+  ["Prenerfabort","NutSardina"],
+  ["m6rie","Hexroo"],
+  ["Zhertak","Mariokart617"],
+  ["Lrrys","Greenuh"]
+];
+
+matchups.forEach(pair => {
+  const slot = document.createElement('div');
+  slot.style.marginBottom = '12px';
+  slot.style.padding = '6px';
+  slot.style.background = '#222';
+  slot.style.borderRadius = '8px';
+
+  const p1 = `<div><img src="https://minotar.net/helm/${pair[0]}/40.png"> ${pair[0]}</div>`;
+  const p2 = `<div><img src="https://minotar.net/helm/${pair[1]}/40.png"> ${pair[1]}</div>`;
+
+  slot.innerHTML = p1 + p2;
+  col00.appendChild(slot);
+});
+
+// Utility to create placeholder slots
+function fillPlaceholders(id, count) {
+  const col = document.getElementById(id);
+  for (let i = 0; i < count; i++) {
+    const slot = document.createElement('div');
+    slot.style.marginBottom = '12px';
+    slot.style.padding = '6px';
+    slot.style.background = '#222';
+    slot.style.borderRadius = '8px';
+    slot.style.height = '50px';
+    col.appendChild(slot);
+  }
 }
 
-// You can extend this with logic to populate subsequent rounds based on winners.
+// Fill all category slots with fixed maximum sizes
+fillPlaceholders('col-1-0', 16);
+fillPlaceholders('col-0-1', 16);
+fillPlaceholders('col-2-0', 8);
+fillPlaceholders('col-0-2', 8);
+fillPlaceholders('col-1-1', 16);
+fillPlaceholders('col-3-0', 4);
+fillPlaceholders('col-0-3', 4);
+fillPlaceholders('col-2-1', 12);
+fillPlaceholders('col-1-2', 12);
+fillPlaceholders('col-3-1', 6);
+fillPlaceholders('col-2-2', 12);
+fillPlaceholders('col-1-3', 6);
+fillPlaceholders('col-3-2', 6);
+fillPlaceholders('col-2-3', 6);
+
 </script>
 
 </body>
